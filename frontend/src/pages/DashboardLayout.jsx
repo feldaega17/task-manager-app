@@ -26,23 +26,40 @@ export default function DashboardLayout() {
                 <nav className="flex-1 px-2 py-4 space-y-2">
                     <Link
                         to="/"
-                        className={`block px-3 py-2 rounded-lg text-sm ${location.pathname === '/'
-                            ? 'bg-slate-700'
+                        className={`block px-3 py-2 rounded-lg text-sm transition-all ${location.pathname === '/'
+                            ? 'bg-blue-600 text-white'
                             : 'hover:bg-slate-800'
                             }`}
                     >
-                        My Tasks
+                        📋 My Tasks
                     </Link>
                     <Link
                         to="/tasks/new"
-                        className={`block px-3 py-2 rounded-lg text-sm ${location.pathname.startsWith('/tasks/new')
-                            ? 'bg-slate-700'
+                        className={`block px-3 py-2 rounded-lg text-sm transition-all ${location.pathname.startsWith('/tasks/new')
+                            ? 'bg-blue-600 text-white'
                             : 'hover:bg-slate-800'
                             }`}
                     >
-                        New Task
+                        ➕ New Task
                     </Link>
-                    {/* nanti bisa tambah: Users, Categories */}
+                    <Link
+                        to="/categories"
+                        className={`block px-3 py-2 rounded-lg text-sm transition-all ${location.pathname === '/categories'
+                            ? 'bg-blue-600 text-white'
+                            : 'hover:bg-slate-800'
+                            }`}
+                    >
+                        📁 Categories
+                    </Link>
+                    <Link
+                        to="/users"
+                        className={`block px-3 py-2 rounded-lg text-sm transition-all ${location.pathname === '/users' || location.pathname.startsWith('/users/')
+                            ? 'bg-blue-600 text-white'
+                            : 'hover:bg-slate-800'
+                            }`}
+                    >
+                        👥 Browse Users
+                    </Link>
                 </nav>
                 <div className="px-4 py-4 border-t border-slate-700 text-xs">
                     <div className="mb-2">Logged in as:</div>

@@ -107,6 +107,17 @@ export class TasksService {
         return this.taskRepo.save(task);
     }
 
+    async findPublicTasksByUser(userId: number) {
+        const tasks = await this.taskRepo.find({
+            where: {
+                owner: { id: userId },
+                isPublic: true,
+            },
+            relations: ['owner', 'category'],
+        });
+        return tasks.map(task => this.sanitizeTask(task));
+    }
+
     async sendDueSoonEmails(mailService: MailService) {
         // Find tasks due within 24 hours with PENDING status
         const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);

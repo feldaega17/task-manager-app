@@ -44,6 +44,14 @@ export class TasksController {
     }
 
     // ----------------------------
+    // GET PUBLIC TASKS BY USER ID
+    // ----------------------------
+    @Get('public/:userId')
+    findPublicTasksByUser(@Param('userId') userId: string) {
+        return this.tasksService.findPublicTasksByUser(+userId);
+    }
+
+    // ----------------------------
     // GET TASK BY ID
     // ----------------------------
     @UseGuards(JwtAuthGuard)

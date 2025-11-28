@@ -1,5 +1,5 @@
 // src/pages/NewTaskPage.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
 
@@ -10,9 +10,24 @@ export default function NewTaskPage() {
         description: '',
         priority: 'LOW',
         dueDate: '',
+        categoryId: null,
         isPublic: false,
     });
     const [error, setError] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await api.get('/categories');
+                setCategories(response.data.items || response.data);
+            } catch (err) {
+                console.error('Error fetching categories:', err);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     const onChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -31,6 +46,7 @@ export default function NewTaskPage() {
                 description: form.description,
                 priority: form.priority,
                 dueDate: form.dueDate ? new Date(form.dueDate).toISOString() : null,
+                categoryId: form.categoryId ? parseInt(form.categoryId) : null,
                 isPublic: form.isPublic,
             });
             navigate('/');
@@ -95,6 +111,22 @@ export default function NewTaskPage() {
                             value={form.dueDate}
                             onChange={onChange}
                         />
+                    </div>
+                    <div>
+                        <label className="block text-sm mb-1">Category</label>
+                        <select
+                            name="categoryId"
+                            className="border rounded-lg px-3 py-2 text-sm"
+                            value={form.categoryId || ''}
+                            onChange={onChange}
+                        >
+                            <option value="">No Category</option>
+                            {categories.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">

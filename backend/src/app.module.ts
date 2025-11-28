@@ -6,10 +6,10 @@ import { Task } from './tasks/task.entity';
 import { Category } from './categories/category.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { RemindersService } from './reminders/reminders.service';
 import { MailModule } from './mail/mail.module';
 import { TasksModule } from './tasks/tasks.module';
 import { CategoriesModule } from './categories/categories.module';
+import { RemindersModule } from './reminders/reminders.module';
 
 @Module({
   imports: [
@@ -25,6 +25,7 @@ import { CategoriesModule } from './categories/categories.module';
     TasksModule,
     CategoriesModule,
     MailModule,
+    RemindersModule,
   ],
   providers: [],
 })

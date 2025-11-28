@@ -6,6 +6,9 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardLayout from './pages/DashboardLayout';
 import MyTasksPage from './pages/MyTasksPage';
 import NewTaskPage from './pages/NewTaskPage';
+import CategoriesPage from './pages/CategoriesPage';
+import UsersListPage from './pages/UsersListPage';
+import PublicTasksPage from './pages/PublicTasksPage';
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
@@ -43,7 +46,9 @@ export default function App() {
       >
         <Route index element={<MyTasksPage />} />
         <Route path="tasks/new" element={<NewTaskPage />} />
-        {/* nanti bisa tambah: /users, /users/:id/public-tasks, dll */}
+        <Route path="categories" element={<CategoriesPage />} />
+        <Route path="users" element={<UsersListPage />} />
+        <Route path="users/:userId/public-tasks" element={<PublicTasksPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" />} />
