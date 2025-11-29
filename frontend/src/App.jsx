@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardLayout from './pages/DashboardLayout';
 import MyTasksPage from './pages/MyTasksPage';
 import NewTaskPage from './pages/NewTaskPage';
+import TaskDetailPage from './pages/TaskDetailPage';
 import CategoriesPage from './pages/CategoriesPage';
 import UsersListPage from './pages/UsersListPage';
 import PublicTasksPage from './pages/PublicTasksPage';
@@ -46,6 +47,7 @@ export default function App() {
       >
         <Route index element={<MyTasksPage />} />
         <Route path="tasks/new" element={<NewTaskPage />} />
+        <Route path="tasks/:taskId" element={<TaskDetailPage />} />
         <Route path="categories" element={<CategoriesPage />} />
         <Route path="users" element={<UsersListPage />} />
         <Route path="users/:userId/public-tasks" element={<PublicTasksPage />} />

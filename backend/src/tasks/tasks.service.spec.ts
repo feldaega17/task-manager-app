@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TasksService } from './tasks.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Task } from './task.entity';
+import { User } from '../users/user.entity';
 
 describe('TasksService', () => {
   let service: TasksService;
@@ -19,6 +20,14 @@ describe('TasksService', () => {
             findOne: jest.fn(),
             createQueryBuilder: jest.fn(),
             remove: jest.fn(),
+            update: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(User),
+          useValue: {
+            find: jest.fn(),
+            findOne: jest.fn(),
           },
         },
       ],

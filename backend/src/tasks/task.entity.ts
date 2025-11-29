@@ -38,6 +38,9 @@ export class Task {
   @Column({ nullable: true })
   attachmentPath: string;
 
+  @Column({ default: false })
+  reminderSent: boolean;
+
   @ManyToOne(() => User, (user) => user.tasks, { onDelete: 'CASCADE' })
   owner: User;
 
