@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { Task } from './task.entity';
 import { User } from '../users/user.entity';
+import { Category } from '../categories/category.entity';
 import { MailService } from '../mail/mail.service';
 
 @Injectable()
@@ -14,6 +15,8 @@ export class TasksService {
         private taskRepo: Repository<Task>,
         @InjectRepository(User)
         private userRepo: Repository<User>,
+        @InjectRepository(Category)
+        private categoryRepo: Repository<Category>,
     ) { }
 
     async create(dto: any, userId: number) {
@@ -21,9 +24,20 @@ export class TasksService {
         if (!user) {
             throw new NotFoundException('User not found');
         }
+
+        // Handle categoryId - convert to category relation
+        let category: Category | null = null;
+        if (dto.categoryId) {
+            category = await this.categoryRepo.findOne({ where: { id: dto.categoryId } });
+        }
+
+        // Remove categoryId from dto and add category relation
+        const { categoryId, ...taskData } = dto;
+
         const task = this.taskRepo.create({
-            ...dto,
+            ...taskData,
             owner: user,
+            category: category,
         });
         const saved = await this.taskRepo.save(task);
         return this.sanitizeTask(saved as unknown as Task);
@@ -91,6 +105,17 @@ export class TasksService {
         // Reset reminder flag if due date is changed
         if (dto.dueDate && dto.dueDate !== task.dueDate) {
             task.reminderSent = false;
+        }
+
+        // Handle categoryId - convert to category relation
+        if (dto.categoryId !== undefined) {
+            if (dto.categoryId) {
+                const category = await this.categoryRepo.findOne({ where: { id: dto.categoryId } });
+                (task as any).category = category;
+            } else {
+                (task as any).category = null;
+            }
+            delete dto.categoryId;
         }
 
         Object.assign(task, dto);

@@ -111,14 +111,17 @@ export default function NewTaskPage() {
 
         try {
             // Step 1: Create the task
-            const taskResponse = await api.post('/tasks', {
+            const taskData = {
                 title: form.title,
                 description: form.description,
                 priority: form.priority,
                 dueDate: form.dueDate ? new Date(form.dueDate).toISOString() : null,
                 categoryId: form.categoryId ? parseInt(form.categoryId) : null,
                 isPublic: form.isPublic,
-            });
+            };
+            console.log('Submitting task:', taskData);
+            const taskResponse = await api.post('/tasks', taskData);
+            console.log('Task response:', taskResponse.data);
 
             const taskId = taskResponse.data.id;
 

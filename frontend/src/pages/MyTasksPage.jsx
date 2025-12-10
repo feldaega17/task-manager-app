@@ -104,7 +104,12 @@ export default function MyTasksPage() {
     const saveEdit = async (taskId) => {
         try {
             setError('');
-            await api.patch(`/tasks/${taskId}`, editForm);
+            const dataToSend = {
+                ...editForm,
+                categoryId: editForm.categoryId ? parseInt(editForm.categoryId) : null,
+                dueDate: editForm.dueDate ? new Date(editForm.dueDate).toISOString() : null,
+            };
+            await api.patch(`/tasks/${taskId}`, dataToSend);
             setSuccess('Task updated!');
             await fetchTasks();
             setEditingId(null);

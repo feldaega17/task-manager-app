@@ -150,7 +150,7 @@ export default function LoginPage() {
 
                 {/* Bottom text */}
                 <p className="text-center text-white/60 text-xs mt-6">
-                    © 2024 TaskFlow. Manage your tasks efficiently.
+                    © 2025 TaskFlow. Manage your tasks efficiently.
                 </p>
             </div>
 

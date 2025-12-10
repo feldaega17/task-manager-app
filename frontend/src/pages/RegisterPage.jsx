@@ -142,9 +142,9 @@ export default function RegisterPage() {
                                     Creating account...
                                 </>
                             ) : (
-                                <>
+                                 <>
                                     <span>🚀</span>
-                                    Create Account
+                                    <span style={{ color: 'black' }}>Create Account</span>
                                 </>
                             )}
                         </button>
@@ -174,7 +174,7 @@ export default function RegisterPage() {
 
                 {/* Bottom text */}
                 <p className="text-center text-white/60 text-xs mt-6">
-                    © 2024 TaskFlow. Manage your tasks efficiently.
+                    © 2025 TaskFlow. Manage your tasks efficiently.
                 </p>
             </div>
 
